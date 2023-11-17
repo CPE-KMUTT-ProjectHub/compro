@@ -1,0 +1,101 @@
+Name,Brand,ProductType,AmountInStorage,Price,ExpireDate
+Mystic Magenta Lip Balm,Too Faced,Lip Balm,23,234.75,15/01/2025
+Elegant Ebony Eyeliner,Anastasia Beverly Hills,Eyeliner,41,715.50,10/12/2024
+Velvet Vixen Primer,MAC,Primer,28,848.75,30/11/2024
+Soothing Sunset Concealer,Revlon,Concealer,32,413.99,15/03/2025
+Champagne Charm Eyeshadow,Fenty Beauty,Eyeshadow,35,338.75,10/09/2024
+Lush Lagoon Lip Balm,NYX Professional Makeup,Lip Balm,19,559.95,20/12/2024
+Copper Crush Eyeliner,Essie,Eyeliner,33,314.99,05/03/2025
+Velvet Violet Lip Balm,Kylie Cosmetics,Lip Balm,29,422.50,15/08/2024
+Dazzling Diamond Primer,Too Faced,Primer,25,732.99,01/11/2024
+Magnetic Midnight Eyeshadow,Revlon,Eyeshadow,26,182.75,20/11/2024
+Radiant Ruby Lip Balm,Urban Decay,Lip Balm,32,345.95,15/02/2025
+Glistening Gold Eyeliner,NARS,Eyeliner,38,445.50,05/12/2024
+Rose Radiance Primer,Fenty Beauty,Primer,30,559.99,15/09/2024
+Opulent Orchid Lip Balm,Stila,Lip Balm,24,339.50,28/02/2025
+Sapphire Spark Eyeshadow,Maybelline,Eyeshadow,28,269.99,15/01/2025
+Velvet Vortex Concealer,MAC,Concealer,35,559.95,01/09/2024
+Precise Plum Eyeliner,Essie,Eyeliner,30,214.99,25/08/2024
+Luminous Lock Primer,It Cosmetics,Primer,23,621.75,15/01/2025
+Velvet Crush Concealer,Stila,Concealer,27,418.99,10/12/2024
+Coral Charm Lip Balm,L'Oreal,Lip Balm,31,217.95,15/03/2025
+Rose Gold Eyeshadow,NYX Professional Makeup,Eyeshadow,29,599.99,15/08/2024
+Bold Brown Eyeliner,CoverGirl,Eyeliner,34,824.75,01/11/2024
+Floral Fusion Eyeshadow,Revlon,Eyeshadow,28,721.99,28/02/2025
+Ultra Shine Lip Balm,Maybelline,Lip Balm,33,349.75,15/11/2024
+Eternal Elegance Primer,Fenty Beauty,Primer,24,527.50,20/08/2024
+Velvet Plum Eyeliner,MAC,Eyeliner,19,588.99,20/03/2025
+Petal Perfection Lip Balm,Essie,Lip Balm,26,754.50,10/09/2024
+Illuminating Eyes Eyeshadow,Too Faced,Eyeshadow,37,437.75,10/04/2025
+Silky Smooth Primer,Stila,Primer,29,499.99,20/06/2024
+Crimson Charm Lip Balm,L'Oreal,Lip Balm,22,362.95,15/03/2025
+Precision Point Eyeliner,Anastasia Beverly Hills,Eyeliner,36,399.99,01/10/2024
+Timeless Touch Concealer,Maybelline,Concealer,25,721.50,05/12/2024
+Radiant Ruby Eyeshadow,Kylie Cosmetics,Eyeshadow,30,527.50,20/01/2025
+Vivid Glow Primer,Urban Decay,Primer,42,776.99,31/07/2024
+Plush Pink Lip Balm,Revlon,Lip Balm,31,582.49,15/03/2025
+Divine Dusk Eyeliner,NARS,Eyeliner,23,519.75,10/09/2024
+Lush Locks Primer,It Cosmetics,Primer,27,724.50,05/01/2025
+Satin Blush Eyeshadow,Fenty Beauty,Eyeshadow,39,928.99,25/04/2025
+Crimson Crush Lip Balm,Essie,Lip Balm,28,913.99,25/08/2024
+Velvet Veil Concealer,Too Faced,Concealer,21,869.50,15/01/2025
+Bold Bronze Eyeliner,CoverGirl,Eyeliner,35,566.50,10/12/2024
+Magnetic Mauve Eyeshadow,Stila,Eyeshadow,32,624.99,25/06/2024
+Luminous Lock Concealer,Revlon,Concealer,20,621.99,15/02/2025
+Blushing Blossom Lip Balm,NYX Professional Makeup,Lip Balm,26,315.95,10/09/2024
+Glowing Goddess Primer,Kylie Cosmetics,Primer,44,889.50,25/11/2024
+Radiant Rose Eyeshadow,MAC,Eyeshadow,19,369.75,10/02/2025
+Berry Blush Lip Balm,Fenty Beauty,Lip Balm,30,799.99,10/09/2024
+Opulent Opal Eyeliner,Maybelline,Eyeliner,24,388.50,20/03/2025
+Ethereal Elegance Primer,Revlon,Primer,33,622.99,15/08/2024
+Golden Glam Eyeshadow,Too Faced,Eyeshadow,29,549.50,01/11/2024
+Sunset Serenity Lip Balm,Stila,Lip Balm,38,824.95,20/03/2025
+Vivid Velvet Concealer,NARS,Concealer,27,523.50,05/07/2024
+Subtle Shine Primer,It Cosmetics,Primer,40,926.99,28/02/2025
+Radiant Rouge Eyeshadow,Essie,Eyeshadow,22,418.50,15/06/2024
+Lush Lavender Lip Balm,Revlon,Lip Balm,32,211.99,10/04/2025
+Ivory Illusion Concealer,Maybelline,Concealer,25,510.95,30/10/2024
+Golden Glow Primer,Fenty Beauty,Primer,36,622.50,25/04/2025
+Silken Smoke Eyeshadow,Urban Decay,Eyeshadow,27,426.75,25/08/2024
+Midnight Mauve Eyeliner,Kylie Cosmetics,Eyeliner,34,665.75,15/06/2024
+Rose Radiance Lip Balm,Too Faced,Lip Balm,26,314.50,20/10/2024
+Glistening Garnet Eyeshadow,Stila,Eyeshadow,29,472.99,01/09/2024
+Vivid Violet Concealer,NYX Professional Makeup,Concealer,38,717.50,15/11/2024
+Copper Charm Primer,Revlon,Primer,25,622.95,20/06/2024
+Golden Goddess Lip Balm,L'Oreal,Lip Balm,30,117.50,15/12/2024
+Opulent Onyx Eyeliner,Fenty Beauty,Eyeliner,21,619.99,05/04/2025
+Velvet Vanilla Primer,CoverGirl,Primer,33,769.50,10/01/2025
+Soothing Sand Concealer,Urban Decay,Concealer,28,420.50,25/07/2024
+Twilight Teal Eyeshadow,Maybelline,Eyeshadow,23,423.75,10/02/2025
+Plum Passion Lip Balm,MAC,Lip Balm,36,413.95,15/03/2025
+Radiant Rose Gold Eyeshadow,Too Faced,Eyeshadow,31,826.99,01/10/2024
+Soft Suede Eyeliner,Anastasia Beverly Hills,Eyeliner,27,416.50,15/09/2024
+Rose Radiance Primer,Revlon,Primer,22,921.99,15/12/2024
+Luminous Lavender Concealer,Fenty Beauty,Concealer,29,618.50,05/04/2025
+Dazzling Diamond Lip Balm,Stila,Lip Balm,24,714.99,10/08/2024
+Radiant Rouge Eyeshadow,Essie,Eyeshadow,37,823.50,15/06/2024
+Ethereal Elegance Lip Balm,L'Oreal,Lip Balm,31,612.99,15/09/2024
+Glimmering Gold Eyeliner,NYX Professional Makeup,Eyeliner,26,617.95,20/03/2025
+Rose Radiance Concealer,Too Faced,Concealer,33,620.99,01/11/2024
+Chic Champagne Eyeshadow,Fenty Beauty,Eyeshadow,28,725.50,15/08/2024
+Luscious Lilac Lip Balm,Maybelline,Lip Balm,35,313.75,25/01/2025
+Radiant Ruby Eyeliner,CoverGirl,Eyeliner,19,716.99,15/04/2025
+Blazing Burgundy Primer,Revlon,Primer,36,626.75,20/06/2024
+Shimmering Silver Eyeshadow,Kylie Cosmetics,Eyeshadow,28,722.50,15/09/2024
+Velvet Vamp Lip Balm,MAC,Lip Balm,23,411.95,20/02/2025
+Mauve Marvel Lip Balm,Anastasia Beverly Hills,Lip Balm,33,192.99,15/04/2025
+Emerald Enchantment Eyeliner,Too Faced,Eyeliner,28,152.50,20/07/2024
+Radiant Rose Gold Primer,Stila,Primer,25,299.99,15/09/2024
+Opulent Onyx Concealer,Fenty Beauty,Concealer,26,188.95,10/05/2025
+Golden Glitter Eyeshadow,MAC,Eyeshadow,29,449.75,01/12/2024
+Velvet Vanilla Lip Balm,Revlon,Lip Balm,37,121.99,15/03/2025
+Plum Passion Eyeliner,L'Oreal,Eyeliner,31,134.50,20/02/2025
+Lush Lavender Primer,Urban Decay,Primer,24,197.99,01/10/2024
+Soothing Sand Concealer,CoverGirl,Concealer,35,152.50,25/08/2024
+Twilight Teal Eyeshadow,Kylie Cosmetics,Eyeshadow,28,487.75,10/01/2025
+Radiant Ruby Lip Balm,Fenty Beauty,Lip Balm,34,215.99,15/07/2024
+Glistening Garnet Eyeliner,Essie,Eyeliner,30,278.50,05/05/2025
+Velvet Vamp Primer,NYX Professional Makeup,Primer,27,144.99,15/11/2024
+Sapphire Spark Concealer,Too Faced,Concealer,22,287.50,20/04/2025
+Crimson Crush Eyeshadow,Stila,Eyeshadow,29,529.99,15/09/2024
+Bold Bronze Lip Balm,Revlon,Lip Balm,26,178.49,10/03/2025
