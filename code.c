@@ -71,7 +71,8 @@ void show(){
     }
 }
 
-// This is a login system function (admin or cashier) // Chanya Kittichai 66070503412
+// This is a login system function (admin or cashier)  
+// Chanya Kittichai 66070503412
 
 int login()
 {
