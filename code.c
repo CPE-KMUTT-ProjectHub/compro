@@ -53,6 +53,9 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
 
     fclose(file);
 }
+
+void Update() {}
+
 void show(){
     const char *filename = "priceyCosmetics.csv";
     struct product _product[1000];
