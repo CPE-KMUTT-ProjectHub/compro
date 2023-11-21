@@ -16,7 +16,8 @@ struct product {
 
 void readCSV(const char *filename, struct product *_product, int *numProduct) {
     FILE *file = fopen(filename, "r");
-    if (file == NULL) {
+    if (file == NULL) 
+    {
         perror("Error opening file");
         exit(EXIT_FAILURE);
     }
@@ -60,7 +61,8 @@ void show(){
     FILE *fpt;
     readCSV(filename, _product, &numSubject);
 
-    for (int i = 0; i < numSubject; i++) {
+    for (int i = 0; i < numSubject; i++) 
+    {
         printf("%s ", _product[i].Name);
         printf("%s ", _product[i].Brand);
         printf("%s ", _product[i].ProducType);
@@ -110,9 +112,21 @@ int login()
     
 }
 
+void create()
+{
+
+}
+
 
 int main() {
     login();
     //show();
     return 0;
 }
+
+
+
+
+
+
+
