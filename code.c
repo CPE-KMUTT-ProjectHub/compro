@@ -54,7 +54,9 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     fclose(file);
 }
 
-void Update() {}
+void Update() {
+    printf("Working");
+}
 
 void show(){
     const char *filename = "priceyCosmetics.csv";
@@ -96,6 +98,8 @@ int login()
         }
         printf("Yeah! You are admin.\n");
         
+        return 1;
+
     }
     if ( code == '1')
     {
@@ -107,6 +111,9 @@ int login()
             scanf("%s", psw);
         }
         printf("Yeah! You are cashier.\n");
+
+        return 1;
+
     }
     
     return 0;
@@ -115,7 +122,27 @@ int login()
 
 
 int main() {
-    login();
+    int Validity = 0, Input;
+
+    if (login()) {
+
+        while (!Validity) {
+            printf("Input 7 to call the update function: ");
+            scanf("%d", &Input);
+
+            if (Input == 7) {
+                Validity = 1;
+
+                Update();
+                
+            } else {
+                printf("You can only input 7. Input again.\n");
+            }
+
+        }
+
+    }
+
     //show();
     return 0;
 }
