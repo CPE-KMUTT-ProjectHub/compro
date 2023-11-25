@@ -54,11 +54,37 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     fclose(file);
 }
 
-void Update() {
-    printf("Working");
+void Update(int Status, int Num, struct product Product[]) {
+    char ProductName[MAX_NAME_SIZE];
+    int Count = 0, i;
+
+    if (Status == 1) {
+
+        while (getchar() != '\n');
+
+        printf("Which product do you wish to edit its data: ");
+        scanf("%[^\n]", ProductName);
+
+        for (i = 0; i < Num; i++) {
+
+            if (strcmp(ProductName, Product[i].Name) == 0) {
+                Count++;
+            }
+
+        }
+
+        if (Count > 0) {
+            printf("Found %d result(s).", Count);
+        } else {
+            printf("Nothing found.");
+        }
+
+    } else {
+    }
+
 }
 
-void show(){
+void show(int Status){
     const char *filename = "priceyCosmetics.csv";
     struct product _product[1000];
     int numSubject;
@@ -74,6 +100,9 @@ void show(){
         printf("%s", _product[i].ExpireDate);
         printf("\n");
     }
+
+    Update(Status, numSubject, _product);
+
 }
 
 // This is a login system function (admin or cashier)  
@@ -112,7 +141,7 @@ int login()
         }
         printf("Yeah! You are cashier.\n");
 
-        return 1;
+        return 2;
 
     }
     
@@ -122,9 +151,10 @@ int login()
 
 
 int main() {
-    int Validity = 0, Input;
+    int Validity = 0, Input, Status;
+    Status = login();
 
-    if (login()) {
+    if (Status == 1 || Status == 2) {
 
         while (!Validity) {
             printf("Input 7 to call the update function: ");
@@ -133,8 +163,8 @@ int main() {
             if (Input == 7) {
                 Validity = 1;
 
-                Update();
-                
+                show(Status);
+
             } else {
                 printf("You can only input 7. Input again.\n");
             }
