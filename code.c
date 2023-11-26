@@ -67,7 +67,7 @@ void Update(int Status, int Num, struct product Product[]) {
 
         for (i = 0; i < Num; i++) {
 
-            if (strcmp(ProductName, Product[i].Name) == 0) {
+            if (strstr(Product[i].Name, ProductName) != NULL) {
                 Count++;
             }
 
