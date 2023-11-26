@@ -187,35 +187,76 @@ void UpdateStruct(struct product Product[], int Status, int i) {
         }
 
     } else {
-    }
 
+        while (!Validity) {
+            printf("New quantity: ");
+
+            if (scanf("%d", &Product[i].AmountInStorage) == 1) {
+                Validity = 1;
+            } else {
+                
+                while (getchar() != '\n');
+
+                printf("You can only input an integer. Input again.\n");
+            }
+
+        }
+
+        printf("Data was processed successfully.\n");
+    }
 }
 
 int Update(int Status, int Num, struct product Product[]) {
     char ProductName[MAX_NAME_SIZE];
     int NextOrEdit, i;
 
-    if (Status == 1) {
+    while (getchar() != '\n');
 
-        while (getchar() != '\n');
+    printf("Which product do you wish to edit its data: ");
+    scanf("%[^\n]", ProductName);
 
-        printf("Which product do you wish to edit its data: ");
-        scanf("%[^\n]", ProductName);
+    for (i = 0; i < Num; i++) {
+        int Validity = 0;
 
-        for (i = 0; i < Num; i++) {
-            int Validity = 0;
+        if (strstr(Product[i].Name, ProductName) != NULL) {
+            printf("Found a result.\n");
+            printf("1: Name: %s\n", Product[i].Name);
+            printf("2: Brand: %s\n", Product[i].Brand);
+            printf("3: Type: %s\n", Product[i].ProducType);
+            printf("4: Quantity: %d\n", Product[i].AmountInStorage);
+            printf("5: Price: %.2f\n", Product[i].Price);
+            printf("6: Expire: %s", Product[i].ExpireDate);
 
-            if (strstr(Product[i].Name, ProductName) != NULL) {
-                printf("Found a result.\n");
-                printf("1: Name: %s\n", Product[i].Name);
-                printf("2: Brand: %s\n", Product[i].Brand);
-                printf("3: Type: %s\n", Product[i].ProducType);
-                printf("4: Quantity: %d\n", Product[i].AmountInStorage);
-                printf("5: Price: %.2f\n", Product[i].Price);
-                printf("6: Expire: %s", Product[i].ExpireDate);
+            while (!Validity) {
+                printf("Press 0 to view the next result and 1 to edit this result: ");
+
+                if (scanf("%d", &NextOrEdit) == 1 && NextOrEdit == 0 || NextOrEdit == 1) {
+                    Validity = 1;
+                } else {
+
+                    while (getchar() != '\n');
+
+                    printf("You can only input either 0 or 1. Try again.\n");
+                }
+
+            }
+
+            if (NextOrEdit == 0) {
+
+                while (getchar() != '\n');
+
+                continue;
+            } else {
+
+                UpdateStruct(Product, Status, i);
+
+                UpdateFile(Num, Product);
+
+                Validity = 0;
+                NextOrEdit = 2;
 
                 while (!Validity) {
-                    printf("Press 0 to view the next result and 1 to edit this result: ");
+                    printf("Data updated successfully. Press 0 to exit and 1 to view the next result: ");
 
                     if (scanf("%d", &NextOrEdit) == 1 && NextOrEdit == 0 || NextOrEdit == 1) {
                         Validity = 1;
@@ -230,50 +271,19 @@ int Update(int Status, int Num, struct product Product[]) {
 
                 if (NextOrEdit == 0) {
 
+                    return 0;
+
+                } else {
+
                     while (getchar() != '\n');
 
                     continue;
-                } else {
-
-                    UpdateStruct(Product, Status, i);
-
-                    UpdateFile(Num, Product);
-
-                    Validity = 0;
-                    NextOrEdit = 2;
-
-                    while (!Validity) {
-                        printf("Data updated successfully. Press 0 to exit and 1 to view the next result: ");
-
-                        if (scanf("%d", &NextOrEdit) == 1 && NextOrEdit == 0 || NextOrEdit == 1) {
-                            Validity = 1;
-                        } else {
-
-                            while (getchar() != '\n');
-
-                            printf("You can only input either 0 or 1. Try again.\n");
-                        }
-
-                    }
-
-                    if (NextOrEdit == 0) {
-
-                        return 0;
-
-                    } else {
-
-                        while (getchar() != '\n');
-
-                        continue;
-                    }
-
                 }
 
             }
 
         }
 
-    } else {
     }
 
 }
