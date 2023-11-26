@@ -16,6 +16,7 @@ struct product {
 
 void readCSV(const char *filename, struct product *_product, int *numProduct) {
     FILE *file = fopen(filename, "r");
+    int Flag = 0;
     if (file == NULL) {
         perror("Error opening file");
         exit(EXIT_FAILURE);
@@ -25,33 +26,57 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     *numProduct = 0;
 
     while (fgets(line, sizeof(line), file) != NULL) {
-        char *token = strtok(line, ",");
-        
-        strncpy(_product[*numProduct].Name, token, MAX_NAME_SIZE - 1);
-        _product[*numProduct].Name[MAX_NAME_SIZE - 1] = '\0';
 
-        token = strtok(NULL, ",");
-        strncpy(_product[*numProduct].Brand, token, MAX_NAME_SIZE - 1);
-        _product[*numProduct].Brand[MAX_NAME_SIZE - 1] = '\0';
+        if (Flag == 1) {
+            char *token = strtok(line, ",");
+            
+            strncpy(_product[*numProduct].Name, token, MAX_NAME_SIZE - 1);
+            _product[*numProduct].Name[MAX_NAME_SIZE - 1] = '\0';
 
-        token = strtok(NULL, ",");
-        strncpy(_product[*numProduct].ProducType, token, MAX_NAME_SIZE - 1);
-        _product[*numProduct].ProducType[MAX_NAME_SIZE - 1] = '\0';
+            token = strtok(NULL, ",");
+            strncpy(_product[*numProduct].Brand, token, MAX_NAME_SIZE - 1);
+            _product[*numProduct].Brand[MAX_NAME_SIZE - 1] = '\0';
 
-        token = strtok(NULL, ",");
-        sscanf(token, "%d", &_product[*numProduct].AmountInStorage);
+            token = strtok(NULL, ",");
+            strncpy(_product[*numProduct].ProducType, token, MAX_NAME_SIZE - 1);
+            _product[*numProduct].ProducType[MAX_NAME_SIZE - 1] = '\0';
 
-        token = strtok(NULL, ",");
-        sscanf(token, "%f", &_product[*numProduct].Price);
+            token = strtok(NULL, ",");
+            sscanf(token, "%d", &_product[*numProduct].AmountInStorage);
 
-        token = strtok(NULL, ",");
-        strncpy(_product[*numProduct].ExpireDate, token, MAX_NAME_SIZE - 1);
-        _product[*numProduct].ExpireDate[MAX_NAME_SIZE - 1] = '\0';
+            token = strtok(NULL, ",");
+            sscanf(token, "%f", &_product[*numProduct].Price);
 
-        (*numProduct)++;
+            token = strtok(NULL, ",");
+            strncpy(_product[*numProduct].ExpireDate, token, MAX_NAME_SIZE - 1);
+            _product[*numProduct].ExpireDate[MAX_NAME_SIZE - 1] = '\0';
+
+            (*numProduct)++;
+        }
+
+        Flag = 1;
+        //The Flag variable is used to prevent the program from copying the first line in the file into the strings.
     }
 
     fclose(file);
+}
+
+void UpdateFile(int Num, struct product Product[]) {
+    FILE *File = fopen("priceyCosmetics.csv", "w");
+    int i;
+
+    if (File == NULL) {
+        perror("Error opening file.");
+        exit(EXIT_FAILURE);
+    }
+
+    fprintf(File, "Name,Brand,ProductType,AmountInStorage,Price,ExpireDate\n");
+
+    for (i = 0; i < Num; i++) {
+        fprintf(File, "%s,%s,%s,%d,%.2f,%s", Product[i].Name, Product[i].Brand, Product[i].ProducType, Product[i].AmountInStorage, Product[i].Price, Product[i].ExpireDate);
+    }
+
+    fclose(File);
 }
 
 void UpdateStruct(struct product Product[], int Status, int i) {
@@ -62,28 +87,36 @@ void UpdateStruct(struct product Product[], int Status, int i) {
         while (!Validity) {
             printf("Input the number corresponding to data you want to edit: ");
 
-            if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 1) {
+            if (scanf("%d", &WhatToEdit) != 1) {
+
+                while (getchar() != '\n');
+
+                printf("Invalid input. Input again.\n");
+                continue;
+            }
+
+            if (WhatToEdit == 1) {
 
                 while (getchar() != '\n');
 
                 Validity = 1;
                 printf("New name: ");
                 scanf("%[^\n]", Product[i].Name);
-            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 2) {
+            } else if (WhatToEdit == 2) {
                 
                 while (getchar() != '\n');
 
                 Validity = 1;
                 printf("New brand: ");
                 scanf("%[^\n]", Product[i].Brand);
-            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 3) {
+            } else if (WhatToEdit == 3) {
                 
                 while (getchar() != '\n');
 
                 Validity = 1;
                 printf("New type: ");
                 scanf("%[^\n]", Product[i].ProducType);
-            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 4) {
+            } else if (WhatToEdit == 4) {
 
                 while (!Validity) {
                     printf("New quantity: ");
@@ -99,7 +132,7 @@ void UpdateStruct(struct product Product[], int Status, int i) {
 
                 }
 
-            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 5) {
+            } else if (WhatToEdit == 5) {
                 
                 while (!Validity) {
                     printf("New price: ");
@@ -115,7 +148,7 @@ void UpdateStruct(struct product Product[], int Status, int i) {
 
                 }
 
-            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 6) {
+            } else if (WhatToEdit == 6) {
                 
                 while (getchar() != '\n');
 
@@ -134,7 +167,7 @@ void UpdateStruct(struct product Product[], int Status, int i) {
         Validity = 0;
 
         while (!Validity) {
-            printf("Press 0 to exit the editing mode and 1 to continue editing.");
+            printf("Data was processed successfully. Press 0 to exit the editing mode and 1 to continue editing: ");
 
             if (scanf("%d", &EditOrExit) == 1 && EditOrExit == 0 || EditOrExit == 1) {
                 Validity = 1;
@@ -204,7 +237,10 @@ int Update(int Status, int Num, struct product Product[]) {
 
                     UpdateStruct(Product, Status, i);
 
+                    UpdateFile(Num, Product);
+
                     Validity = 0;
+                    NextOrEdit = 2;
 
                     while (!Validity) {
                         printf("Data updated successfully. Press 0 to exit and 1 to view the next result: ");
