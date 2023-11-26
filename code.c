@@ -54,6 +54,110 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     fclose(file);
 }
 
+void UpdateStruct(struct product Product[], int Status, int i) {
+    int Validity = 0, WhatToEdit, EditOrExit;
+
+    if (Status == 1) {
+
+        while (!Validity) {
+            printf("Input the number corresponding to data you want to edit: ");
+
+            if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 1) {
+
+                while (getchar() != '\n');
+
+                Validity = 1;
+                printf("New name: ");
+                scanf("%[^\n]", Product[i].Name);
+            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 2) {
+                
+                while (getchar() != '\n');
+
+                Validity = 1;
+                printf("New brand: ");
+                scanf("%[^\n]", Product[i].Brand);
+            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 3) {
+                
+                while (getchar() != '\n');
+
+                Validity = 1;
+                printf("New type: ");
+                scanf("%[^\n]", Product[i].ProducType);
+            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 4) {
+
+                while (!Validity) {
+                    printf("New quantity: ");
+
+                    if (scanf("%d", &Product[i].AmountInStorage) == 1) {
+                        Validity = 1;
+                    } else {
+                        
+                        while (getchar() != '\n');
+
+                        printf("You can only input an integer. Input again.\n");
+                    }
+
+                }
+
+            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 5) {
+                
+                while (!Validity) {
+                    printf("New price: ");
+
+                    if (scanf("%f", &Product[i].Price) == 1) {
+                        Validity = 1;
+                    } else {
+                        
+                        while (getchar() != '\n');
+
+                        printf("You can only input a float number. Input again.\n");
+                    }
+
+                }
+
+            } else if (scanf("%d", &WhatToEdit) == 1 && WhatToEdit == 6) {
+                
+                while (getchar() != '\n');
+
+                Validity = 1;
+                printf("New expire: ");
+                scanf("%[^\n]", Product[i].ExpireDate);
+            } else {
+
+                while (getchar() != '\n');
+
+                printf("Invalid input. Input again.\n");
+            }
+
+        }
+
+        Validity = 0;
+
+        while (!Validity) {
+            printf("Press 0 to exit the editing mode and 1 to continue editing.");
+
+            if (scanf("%d", &EditOrExit) == 1 && EditOrExit == 0 || EditOrExit == 1) {
+                Validity = 1;
+            } else {
+                
+                while (getchar() != '\n');
+
+                printf("You can only input either 0 or 1. Try again.\n");
+            }
+
+        }
+
+        if (EditOrExit == 1) {
+
+            UpdateStruct(Product, Status, i);
+
+        }
+
+    } else {
+    }
+
+}
+
 int Update(int Status, int Num, struct product Product[]) {
     char ProductName[MAX_NAME_SIZE];
     int NextOrEdit, i;
@@ -97,6 +201,9 @@ int Update(int Status, int Num, struct product Product[]) {
 
                     continue;
                 } else {
+
+                    UpdateStruct(Product, Status, i);
+
                     Validity = 0;
 
                     while (!Validity) {
