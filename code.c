@@ -54,9 +54,9 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     fclose(file);
 }
 
-void Update(int Status, int Num, struct product Product[]) {
+int Update(int Status, int Num, struct product Product[]) {
     char ProductName[MAX_NAME_SIZE];
-    int Count = 0, i;
+    int NextOrEdit, i;
 
     if (Status == 1) {
 
@@ -66,17 +66,68 @@ void Update(int Status, int Num, struct product Product[]) {
         scanf("%[^\n]", ProductName);
 
         for (i = 0; i < Num; i++) {
+            int Validity = 0;
 
             if (strstr(Product[i].Name, ProductName) != NULL) {
-                Count++;
+                printf("Found a result.\n");
+                printf("1: Name: %s\n", Product[i].Name);
+                printf("2: Brand: %s\n", Product[i].Brand);
+                printf("3: Type: %s\n", Product[i].ProducType);
+                printf("4: Quantity: %d\n", Product[i].AmountInStorage);
+                printf("5: Price: %.2f\n", Product[i].Price);
+                printf("6: Expire: %s", Product[i].ExpireDate);
+
+                while (!Validity) {
+                    printf("Press 0 to view the next result and 1 to edit this result: ");
+
+                    if (scanf("%d", &NextOrEdit) == 1 && NextOrEdit == 0 || NextOrEdit == 1) {
+                        Validity = 1;
+                    } else {
+
+                        while (getchar() != '\n');
+
+                        printf("You can only input either 0 or 1. Try again.\n");
+                    }
+
+                }
+
+                if (NextOrEdit == 0) {
+
+                    while (getchar() != '\n');
+
+                    continue;
+                } else {
+                    Validity = 0;
+
+                    while (!Validity) {
+                        printf("Data updated successfully. Press 0 to exit and 1 to view the next result: ");
+
+                        if (scanf("%d", &NextOrEdit) == 1 && NextOrEdit == 0 || NextOrEdit == 1) {
+                            Validity = 1;
+                        } else {
+
+                            while (getchar() != '\n');
+
+                            printf("You can only input either 0 or 1. Try again.\n");
+                        }
+
+                    }
+
+                    if (NextOrEdit == 0) {
+
+                        return 0;
+
+                    } else {
+
+                        while (getchar() != '\n');
+
+                        continue;
+                    }
+
+                }
+
             }
 
-        }
-
-        if (Count > 0) {
-            printf("Found %d result(s).", Count);
-        } else {
-            printf("Nothing found.");
         }
 
     } else {
@@ -158,15 +209,17 @@ int main() {
 
         while (!Validity) {
             printf("Input 7 to call the update function: ");
-            scanf("%d", &Input);
 
-            if (Input == 7) {
+            if (scanf("%d", &Input) == 1 && Input == 7) {
                 Validity = 1;
 
                 show(Status);
 
             } else {
-                printf("You can only input 7. Input again.\n");
+                
+                while (getchar() != '\n');
+
+                printf("You can only input 7. Input again\n");
             }
 
         }
