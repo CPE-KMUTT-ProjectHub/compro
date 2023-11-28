@@ -298,7 +298,7 @@ void create()
             scanf("%02s/%02s/%04s",day_initial,month_initial,year_initial);
             while (NumberCheck(day_initial) == -1 || NumberCheck(month_initial) == -1 || NumberCheck(year_initial) == -1 )
             {
-                printf("Please enter valid date: ");
+                printf("Please enter valid date : ");
                 scanf("%02s/%02s/%04s",day_initial,month_initial,year_initial);
             }
             day = NumberCheck(day_initial);
