@@ -61,6 +61,7 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     fclose(file);
 }
 
+//A part of the update function by Karun Tancharoen 66070503407
 void UpdateFile(int Num, struct product Product[]) {
     FILE *File = fopen("priceyCosmetics.csv", "w");
     int i;
@@ -79,6 +80,7 @@ void UpdateFile(int Num, struct product Product[]) {
     fclose(File);
 }
 
+//A part of the update function by Karun Tancharoen 66070503407
 void UpdateStruct(struct product Product[], int Status, int i) {
     int Validity = 0, WhatToEdit, EditOrExit;
 
@@ -206,6 +208,7 @@ void UpdateStruct(struct product Product[], int Status, int i) {
     }
 }
 
+//The update function by Karun Tancharoen 66070503407
 int Update(int Status, int Num, struct product Product[]) {
     char ProductName[MAX_NAME_SIZE];
     int NextOrEdit, i;
