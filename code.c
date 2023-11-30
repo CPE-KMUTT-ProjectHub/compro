@@ -61,6 +61,10 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     fclose(file);
 }
 
+void delete() {
+    printf("Working");
+}
+
 void UpdateFile(int Num, struct product Product[]) {
     FILE *File = fopen("priceyCosmetics.csv", "w");
     int i;
@@ -228,15 +232,15 @@ int Update(int Status, int Num, struct product Product[]) {
             printf("6: Expire: %s", Product[i].ExpireDate);
 
             while (!Validity) {
-                printf("Press 0 to view the next result and 1 to edit this result: ");
+                printf("Press 0 to view the next result, 1 to edit this result, and 2 to delete this result: ");
 
-                if (scanf("%d", &NextOrEdit) == 1 && NextOrEdit == 0 || NextOrEdit == 1) {
+                if (scanf("%d", &NextOrEdit) == 1 && NextOrEdit == 0 || NextOrEdit == 1 || NextOrEdit == 2) {
                     Validity = 1;
                 } else {
 
                     while (getchar() != '\n');
 
-                    printf("You can only input either 0 or 1. Try again.\n");
+                    printf("You can only input 0, 1, or 2. Try again.\n");
                 }
 
             }
@@ -246,7 +250,7 @@ int Update(int Status, int Num, struct product Product[]) {
                 while (getchar() != '\n');
 
                 continue;
-            } else {
+            } else if (NextOrEdit == 1) {
 
                 UpdateStruct(Product, Status, i);
 
@@ -280,6 +284,11 @@ int Update(int Status, int Num, struct product Product[]) {
                     continue;
                 }
 
+            } else {
+
+                delete();
+
+                break;
             }
 
         }
