@@ -112,50 +112,6 @@ int login()
     
 }
 
-
-//ValidExpireDate function by 66070503438 Punyanuch Kajornchaikitti
-
-char* ValidExpireDate(int day,int month,int year)
-{
-    char* expireDateinitial = (char*)malloc(11 * sizeof(char));
-    int dayInMonth[]= {0,31,28,31,30,31,30,31,30,30,31,30,31};
-    if ( month > 12 || month < 1 || day > 31 || day < 1)
-    {
-        printf("Invalid date, please enter Expire date again: ");
-        scanf("%02d/%02d/%04d",&day,&month,&year);
-        ValidExpireDate(day,month,year);
-    }
-    else if ( month == 2)
-    {
-            if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
-            {
-                    if ( day > 29)
-                    {
-                        printf("Invalid date, please enter Expire date again: ");
-                        scanf("%02d/%02d/%04d",&day,&month,&year);
-                        ValidExpireDate(day,month,year);
-                    }
-            }
-            else if ( day > dayInMonth[month])
-            {
-                printf("Invalid date, please enter Expire date again: ");
-                scanf("%02d/%02d/%04d",&day,&month,&year);
-                ValidExpireDate(day,month,year);
-            }
-            else
-            {
-                sprintf(expireDateinitial, "%02d/%02d/%04d", day,month,year);
-                return expireDateinitial;
-            }      
-    }
-    else if (day <= dayInMonth[month])
-    {
-        sprintf(expireDateinitial, "%02d/%02d/%04d", day,month,year);
-        return expireDateinitial;
-    }
-    
-}
-
 //LetterCheck function by 66070503438 Punyanuch Kajornchaikitti
 int LetterCheck(char input[])
 {
@@ -187,7 +143,7 @@ int NumberCheck(char input[])
             return -1;
         }
     }
-    return atoi(input);
+    return 1;
 }
 
 //PriceCheck function by 66070503438 Punyanuch Kajornchaikitti
@@ -210,22 +166,104 @@ int PriceCheck(char input[])
            return -1;
         }
     }
-    return atof(input);
+    return 1;
 }
 
+int isExpireDateFormatValid(char expireDate[])
+{
+    int count = 0;
+    int isValid = 0;
+    for ( int i = 0; expireDate[i] != '\0'; i++ )
+    {
+        count++;
+    }
+    if ( count > 10 || expireDate[2] != '/' || expireDate[5] != '/' )
+    {
+        printf("Enter in DD/MM/YYYY format: ");
+        return -1;
+    }
+    for ( int i = 0 ; i < 10; i++)
+    {
+        if ( i == 2 || i == 5)
+        {
+            continue;
+        }
+        if ( expireDate[i] < '0' || expireDate[i] > '9')
+        {
+            printf("Please enter integers: ");
+            return -1;
+        }
+        else if (expireDate[i] >= '0' && expireDate[i] <= '9' )
+        {
+            isValid = 1;
+        }
+    }
+    if ( isValid == 1)
+    {
+        return 1;
+    }
+}
+
+//isExpireDateExists function by 66070503438 Punyanuch Kajornchaikitti
+int isExpireDateExists(char validFormatEXPDate[])
+{
+    char dayCantMath[3],monthCantMath[3],yearCantMath[5];
+    dayCantMath[2]= '\0',monthCantMath[2] = '\0', yearCantMath[4] = '\0';
+    int day,month,year;
+    for ( int i = 0 ; i < 2; i++ )
+    {
+        dayCantMath[i] = validFormatEXPDate[i];
+    }
+    day = atoi(dayCantMath);
+    for ( int i = 3 ; i < 5; i++)
+    {
+        monthCantMath[i-3] = validFormatEXPDate[i];
+    }
+    month = atoi(monthCantMath);
+    for ( int i = 6; i < 10; i++)
+    {
+        yearCantMath[i-6] = validFormatEXPDate[i];
+    }
+    year = atoi(yearCantMath);
+    int dayInMonth[]= {0,31,28,31,30,31,30,31,30,30,31,30,31};
+    if ( month > 12 || month < 1 || day > 31 || day < 1)
+    {
+        printf("Invalid date, please enter Expire date again: ");
+        return -1;
+    }
+    else if ( month == 2)
+    {
+            if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+            {
+                    if ( day > 29)
+                    {
+                        printf("Invalid date, please enter Expire date again: ");
+                        return -1;
+                    }
+            }
+            else if ( day > dayInMonth[month])
+            {
+                printf("Invalid date, please enter Expire date again: ");
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }      
+    }
+    else if (day <= dayInMonth[month])
+    {
+        return 1;
+    }
+    
+}
 //Create function by 66070503438 Punyanuch Kajornchaikitti
 void create()
 {
-        char Name[1000];
-        char Brand[1000];
         char ProductType[1000];
         char Price[1000];
         char Amount[1000];
-        char day_initial[4];
-        char month_initial[4];
-        char year_initial[6];
-        char* validExpireDate;
-        int day,month,year;
+        char expireDate[11];
         char amount_product_to_add_initial[10000];
         int amount_product_to_add;
         FILE *createptr = fopen("priceyCosmetics.csv","a");
@@ -240,38 +278,24 @@ void create()
         printf("Enter amount of product you want to create: ");
         scanf("%s",amount_product_to_add_initial);
         while (NumberCheck(amount_product_to_add_initial) == -1 )
-            {
+        {
                 printf("Enter only integer(s): ");
                 scanf("%s",amount_product_to_add_initial);
-            }
-        amount_product_to_add = NumberCheck(amount_product_to_add_initial);
+        }
+        amount_product_to_add = atoi(amount_product_to_add_initial);
         for ( int i = 0; i < amount_product_to_add ; i++)
         {
             printf("| Product number %d",i+1);
 
             printf("\nName: ");
-            scanf("%s",Name);
-            while (LetterCheck(Name) == -1 )
-            {
-                printf("Enter only letter(s): ");
-                scanf("%s",Name);
-            }
-            strcpy(product[i].Name, Name);
-            
+            scanf("%s",product[i].Name);
             printf("Brand: ");
-            scanf("%s",Brand);
-            while (LetterCheck(Brand) == -1 )
-            {
-                printf("Enter only letter(s): ");
-                scanf("%s",Brand);
-            }
-            strcpy(product[i].Brand, Brand);
-
+            scanf("%s",product[i].Brand);
             printf("Product Type: ");
             scanf("%s",ProductType);
             while (LetterCheck(ProductType) == -1 )
             {
-                printf("Enter only letter(s): ");
+                printf("Please enter only letter(s): ");
                 scanf("%s",ProductType);
             }
             strcpy(product[i].ProducType, ProductType);
@@ -280,7 +304,7 @@ void create()
             scanf("%s",Amount);
             while (NumberCheck(Amount) == -1 )
             {
-                printf("Enter only integer(s): ");
+                printf("Please enter only integer(s): ");
                 scanf("%s",Amount);
             }
             product[i].AmountInStorage = NumberCheck(Amount);
@@ -289,23 +313,17 @@ void create()
             scanf("%s",Price);
             while (PriceCheck(Price) ==-1 )
             {
-                printf("Enter only numbers: ");
+                printf("Please enter only numbers: ");
                 scanf("%s",Price);
             }
-            product[i].Price = PriceCheck(Price);
-            
+            product[i].Price = atof(Price);
             printf("Expire Date (DD/MM/YYYY): ");
-            scanf("%02s/%02s/%04s",day_initial,month_initial,year_initial);
-            while (NumberCheck(day_initial) == -1 || NumberCheck(month_initial) == -1 || NumberCheck(year_initial) == -1 )
+            scanf("%s",&expireDate);
+            while (isExpireDateFormatValid(expireDate) == -1 || isExpireDateExists(expireDate) == -1)
             {
-                printf("Please enter valid date : ");
-                scanf("%02s/%02s/%04s",day_initial,month_initial,year_initial);
+                scanf("%s",&expireDate);
             }
-            day = NumberCheck(day_initial);
-            month = NumberCheck(month_initial);
-            year = NumberCheck(year_initial);
-            validExpireDate = ValidExpireDate(day,month,year);
-            strcpy(product[i].ExpireDate,validExpireDate);
+            strcpy(product[i].ExpireDate,expireDate);
             printf("-----------------------------------\n");           
         }
 
