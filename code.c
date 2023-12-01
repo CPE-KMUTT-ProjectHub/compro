@@ -16,6 +16,7 @@ struct product {
 
 void readCSV(const char *filename, struct product *_product, int *numProduct) {
     FILE *file = fopen(filename, "r");
+    int Flag = 0;
     if (file == NULL) {
         perror("Error opening file");
         exit(EXIT_FAILURE);
@@ -287,73 +288,30 @@ int Update(int Status, int Num, struct product Product[]) {
         }
 
     }
-
+return 0;
 }
 
-void show(int Status){
+void show(int Status, int Flag){
     const char *filename = "priceyCosmetics.csv";
     struct product _product[1000];
     int numSubject;
     FILE *fpt;
     readCSV(filename, _product, &numSubject);
 
-    for (int i = 0; i < numSubject; i++) 
-    {
+    for (int i = 0; i < numSubject; i++) {
         printf("%s ", _product[i].Name);
         printf("%s ", _product[i].Brand);
         printf("%s ", _product[i].ProducType);
         printf("%d ", _product[i].AmountInStorage);
-        printf("%.2lf ", _product[i].Price);
+        printf("%.2f ", _product[i].Price);
         printf("%s", _product[i].ExpireDate);
         printf("\n");
     }
 
-    Update(Status, numSubject, _product);
-
-}
-
-// This is a login system function (admin or cashier)  
-// Chanya Kittichai 66070503412
-
-int login()
-{
-    char code;
-    printf("[0] Admin\n[1] Cashier\n[else] Exit\n");
-    scanf("%c", &code);
-
-    char psw[6];
-
-    if ( code == '0')
-    {
-        printf("Please enter a passinitial: ");
-        scanf("%s", psw);
-        while (strcmp(psw, "12345a")!=0)
-        {
-            printf("Please enter the passinitial again.\n");
-            scanf("%s", psw);
-        }
-        printf("Yeah! You are admin.\n");
-        
-        return 1;
-
+    if (Flag == 1) {
+        Update(Status, numSubject, _product);
     }
-    if ( code == '1')
-    {
-        printf("Please enter a passinitial: ");
-        scanf("%s", psw);
-        while (strcmp(psw, "12345c")!=0)
-        {
-            printf("Please enter the passinitial again.\n");
-            scanf("%s", psw);
-        }
-        printf("Yeah! You are cashier.\n");
 
-        return 2;
-
-    }
-    
-    return 0;
-    
 }
 
 //LetterCheck function by 66070503438 Punyanuch Kajornchaikitti
@@ -573,7 +531,7 @@ void create()
 
         for ( int i = 0; i < amount_product_to_add ; i++)
         {
-            fprintf(createptr,"%s,%s,%s,%d,%.2f,%s\n",product[i].Name,product[i].Brand,product[i].ProducType,product[i].AmountInStorage,product[i].Price,product[i].ExpireDate);       
+            fprintf(createptr,"\n%s,%s,%s,%d,%.2f,%s",product[i].Name,product[i].Brand,product[i].ProducType,product[i].AmountInStorage,product[i].Price,product[i].ExpireDate);       
         }
 
         printf("Completely add product(s)");
@@ -582,18 +540,121 @@ void create()
 }
 
 
+// This is a login system function (admin or cashier)  
+// Chanya Kittichai 66070503412
+
+int login()
+{
+    char code;
+    printf("[0] Admin\n[1] Cashier\n[else] Exit\n");
+    scanf("%c", &code);
+
+    char psw[6];
+
+    if ( code == '0')
+    {
+        printf("Please enter a password: ");
+        scanf("%s", psw);
+        while (strcmp(psw, "12345a")!=0)
+        {
+            printf("Please enter the password again.\n");
+            scanf("%s", psw);
+        }
+        printf("Yeah! You are admin.\n");
+        
+        return 1;
+
+    }
+    if ( code == '1')
+    {
+        printf("Please enter a password: ");
+        scanf("%s", psw);
+        while (strcmp(psw, "12345c")!=0)
+        {
+            printf("Please enter the password again.\n");
+            scanf("%s", psw);
+        }
+        printf("Yeah! You are cashier.\n");
+
+        return 2;
+
+    }
     
-
-
-int main() {
-    login();
-    //show();
     return 0;
+    
 }
 
 
+int main() {
+    int Validity = 0, Input, Status;
+    Status = login();
 
+    if (Status == 1) {
 
+        while (!Validity) {
+            printf("Show all products: Press 0\n");
+            printf("Create product(s): Press 1\n");
+            printf("Update or delete product(s): Press 2\n");
+            printf("Choose what to do: ");
 
+            if (scanf("%d", &Input) == 1 && Input == 0 || Input == 1 || Input == 2 ||Input == 3 ) 
+            {
+                if (Input == 0) {
+                    Validity = 1;
 
+                    show(Status, 0);
 
+                } 
+                else if (Input == 1) {
+                    Validity = 1;
+
+                    create();
+                }
+                else if ( Input == 2)
+                {
+                    show(Status, 1);
+                }
+
+            } else {
+                
+                while (getchar() != '\n');
+
+                printf("You can only input 0, 1, or 2. Input again\n");
+            }
+
+        }
+
+    } else {
+
+        while (!Validity) {
+            printf("Show all products: Press 0\n");
+            printf("Update or delete product(s): Press 1\n");
+            printf("Choose what to do: ");
+
+            if (scanf("%d", &Input) == 1 && Input == 0 || Input == 1) 
+            {
+                if (Input == 0) {
+                    Validity = 1;
+
+                    show(Status, 0);
+
+                } 
+                else {
+                    Validity = 1;
+
+                    show(Status, 1);
+                }
+
+            } else {
+                
+                while (getchar() != '\n');
+
+                printf("You can only input 0 or 1. Input again\n");
+            }
+
+        }
+
+    }
+
+    return 0;
+}
