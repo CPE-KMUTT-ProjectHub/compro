@@ -80,6 +80,7 @@ void UpdateFile(int Num, struct product Product[]) {
 }
 
 void UpdateStruct(struct product Product[], int Status, int i) {
+    char Expire[MAX_LINE_SIZE];
     int Validity = 0, WhatToEdit, EditOrExit;
 
     if (Status == 1) {
@@ -149,12 +150,12 @@ void UpdateStruct(struct product Product[], int Status, int i) {
                 }
 
             } else if (WhatToEdit == 6) {
-                
-                while (getchar() != '\n');
 
-                Validity = 1;
-                printf("New expire: ");
-                scanf("%[^\n]", Product[i].ExpireDate);
+                while (!Validity) {
+                    printf("New expire: ");
+
+                    if (scanf("%s", &Expire)) {}
+                }
             } else {
 
                 while (getchar() != '\n');
