@@ -61,8 +61,60 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     fclose(file);
 }
 
-void delete() {
-    printf("Working");
+void delete(const char *filename, int i) {
+    
+    int Validity = 0, DeleteOrNot;
+
+        while (!Validity) {
+            printf("Press 0 to exit delete mode and press 1 to delete: ");
+
+            if (scanf("%d", &DeleteOrNot) == 1 && DeleteOrNot == 0 || DeleteOrNot == 1) {
+                Validity = 1;
+            } else {
+                
+                while (getchar() != '\n');
+
+                printf("You can only input either 0 or 1. Try again.\n");
+            }
+
+        }
+
+        if (DeleteOrNot == 0) {
+
+            return;
+
+        } else {
+                
+                // Delete a row from a CSV file
+                FILE *inputFile = fopen(filename, "r");
+                FILE *outputFile = fopen("temp.csv", "w");
+
+                if (inputFile == NULL || outputFile == NULL) {
+                    perror("Error opening files");
+                    exit(EXIT_FAILURE);
+                }
+
+                char line[MAX_LINE_SIZE];
+                int currentRow = 0;
+
+                while (fgets(line, sizeof(line), inputFile) != NULL) {
+                    if (currentRow != i + 1) {
+                        fputs(line, outputFile);
+                    }
+                    currentRow++;
+                }
+
+                fclose(inputFile);
+                fclose(outputFile);
+
+                // Rename the temporary file to the original file
+                remove(filename);
+                rename("temp.csv", filename);
+            
+
+            printf("Deletion completed.\n");
+        }
+    
 }
 
 void UpdateFile(int Num, struct product Product[]) {
@@ -210,7 +262,7 @@ void UpdateStruct(struct product Product[], int Status, int i) {
     }
 }
 
-int Update(int Status, int Num, struct product Product[]) {
+int Update(int Status, int Num, struct product Product[], const char *filename) {
     char ProductName[MAX_NAME_SIZE];
     int NextOrEdit, i;
 
@@ -286,7 +338,7 @@ int Update(int Status, int Num, struct product Product[]) {
 
             } else {
 
-                delete();
+                delete(filename , i);
 
                 break;
             }
@@ -314,7 +366,7 @@ void show(int Status){
         printf("\n");
     }
 
-    Update(Status, numSubject, _product);
+    Update(Status, numSubject, _product, filename);
 
 }
 
