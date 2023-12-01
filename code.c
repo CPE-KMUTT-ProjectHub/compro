@@ -151,11 +151,11 @@ void UpdateStruct(struct product Product[], int Status, int i) {
 
             } else if (WhatToEdit == 6) {
 
-                while (!Validity) {
-                    printf("New expire: ");
+                while (getchar() != '\n');
 
-                    if (scanf("%s", &Expire)) {}
-                }
+                Validity = 1;
+                printf("New expire: ");
+                scanf("%[^\n]", Product[i].ExpireDate);
             } else {
 
                 while (getchar() != '\n');
