@@ -16,6 +16,7 @@ struct product {
 
 void readCSV(const char *filename, struct product *_product, int *numProduct) {
     FILE *file = fopen(filename, "r");
+    int Flag = 0;
     if (file == NULL) {
         perror("Error opening file");
         exit(EXIT_FAILURE);
