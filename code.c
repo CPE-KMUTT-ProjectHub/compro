@@ -61,7 +61,7 @@ void readCSV(const char *filename, struct product *_product, int *numProduct) {
     fclose(file);
 }
 
-void delete(const char *filename, int i) {
+int delete(const char *filename, int i, int Status) {
     
     int Validity = 0, DeleteOrNot;
 
@@ -85,34 +85,43 @@ void delete(const char *filename, int i) {
 
         } else {
                 
-                // Delete a row from a CSV file
-                FILE *inputFile = fopen(filename, "r");
-                FILE *outputFile = fopen("temp.csv", "w");
+                if (Status == 2) {
 
-                if (inputFile == NULL || outputFile == NULL) {
-                    perror("Error opening files");
-                    exit(EXIT_FAILURE);
-                }
+                    printf("Only admin can delete.\n");
 
-                char line[MAX_LINE_SIZE];
-                int currentRow = 0;
+                    return;
 
-                while (fgets(line, sizeof(line), inputFile) != NULL) {
-                    if (currentRow != i + 1) {
-                        fputs(line, outputFile);
+                } else if (Status == 1) {
+                     // Delete a row from a CSV file
+                    FILE *inputFile = fopen(filename, "r");
+                    FILE *outputFile = fopen("temp.csv", "w");
+
+                    if (inputFile == NULL || outputFile == NULL) {
+                        perror("Error opening files");
+                        exit(EXIT_FAILURE);
                     }
-                    currentRow++;
+
+                    char line[MAX_LINE_SIZE];
+                    int currentRow = 0;
+
+                    while (fgets(line, sizeof(line), inputFile) != NULL) {
+                        if (currentRow != i + 1) {
+                            fputs(line, outputFile);
+                        }
+                        currentRow++;
+                    }
+
+                    fclose(inputFile);
+                    fclose(outputFile);
+
+                    // Rename the temporary file to the original file
+                    remove(filename);
+                    rename("temp.csv", filename);
+                
+
+                    printf("Deleted.\n");
                 }
-
-                fclose(inputFile);
-                fclose(outputFile);
-
-                // Rename the temporary file to the original file
-                remove(filename);
-                rename("temp.csv", filename);
-            
-
-            printf("Deletion completed.\n");
+               
         }
     
 }
@@ -338,7 +347,7 @@ int Update(int Status, int Num, struct product Product[], const char *filename) 
 
             } else {
 
-                delete(filename , i);
+                delete(filename , i, Status);
 
                 break;
             }
