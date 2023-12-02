@@ -14,6 +14,50 @@ struct product {
     char ExpireDate[MAX_LINE_SIZE];
 };
 
+// This is a login system function (admin or cashier)  
+// Chanya Kittichai 66070503412
+
+int login()
+{
+    char code;
+    printf("[0] Admin\n[1] Cashier\n[else] Exit\n");
+    scanf("%c", &code);
+
+    char psw[6];
+
+    if ( code == '0')
+    {
+        printf("Please enter a password: ");
+        scanf("%s", psw);
+        while (strcmp(psw, "12345a")!=0)
+        {
+            printf("Please enter the password again.\n");
+            scanf("%s", psw);
+        }
+        printf("Yeah! You are admin.\n");
+        
+        return 1;
+
+    }
+    if ( code == '1')
+    {
+        printf("Please enter a password: ");
+        scanf("%s", psw);
+        while (strcmp(psw, "12345c")!=0)
+        {
+            printf("Please enter the password again.\n");
+            scanf("%s", psw);
+        }
+        printf("Yeah! You are cashier.\n");
+
+        return 2;
+
+    }
+    
+    return 0;
+    
+}
+
 void readCSV(const char *filename, struct product *_product, int *numProduct) {
     FILE *file = fopen(filename, "r");
     int Flag = 0;
@@ -81,50 +125,40 @@ int delete(const char *filename, int i, int Status) {
 
         if (DeleteOrNot == 0) {
 
-            
+            return 1;
 
         } else {
-                
-                if (Status == 2) {
+            // Delete a row from a CSV file
+            FILE *inputFile = fopen(filename, "r");
+            FILE *outputFile = fopen("temp.csv", "w");
 
-                    printf("Only admin can delete.\n");
+            if (inputFile == NULL || outputFile == NULL) {
+                perror("Error opening files");
+                exit(EXIT_FAILURE);
+            }
 
-                    
+            char line[MAX_LINE_SIZE];
+            int currentRow = 0;
 
-                } else if (Status == 1) {
-                     // Delete a row from a CSV file
-                    FILE *inputFile = fopen(filename, "r");
-                    FILE *outputFile = fopen("temp.csv", "w");
-
-                    if (inputFile == NULL || outputFile == NULL) {
-                        perror("Error opening files");
-                        exit(EXIT_FAILURE);
-                    }
-
-                    char line[MAX_LINE_SIZE];
-                    int currentRow = 0;
-
-                    while (fgets(line, sizeof(line), inputFile) != NULL) {
-                        if (currentRow != i + 1) {
-                            fputs(line, outputFile);
-                        }
-                        currentRow++;
-                    }
-
-                    fclose(inputFile);
-                    fclose(outputFile);
-
-                    // Rename the temporary file to the original file
-                    remove(filename);
-                    rename("temp.csv", filename);
-                
-
-                    printf("Deleted.\n");
+            while (fgets(line, sizeof(line), inputFile) != NULL) {
+                if (currentRow != i + 1) {
+                    fputs(line, outputFile);
                 }
-               
+                currentRow++;
+            }
+
+            fclose(inputFile);
+            fclose(outputFile);
+
+            // Rename the temporary file to the original file
+            remove(filename);
+            rename("temp.csv", filename);
+        
+
+            printf("Deleted.\n");
         }
-    
-}
+               
+    }
 
 void UpdateFile(int Num, struct product Product[]) {
     FILE *File = fopen("priceyCosmetics.csv", "w");
@@ -293,10 +327,28 @@ int Update(int Status, int Num, struct product Product[], const char *filename) 
             printf("6: Expire: %s", Product[i].ExpireDate);
 
             while (!Validity) {
+                int BackFromDelete = 0;
                 printf("Press 0 to view the next result, 1 to edit this result, and 2 to delete this result: ");
 
                 if (scanf("%d", &NextOrEdit) == 1 && NextOrEdit == 0 || NextOrEdit == 1 || NextOrEdit == 2) {
-                    Validity = 1;
+
+                    if (NextOrEdit == 2) {
+
+                        if (Status == 1) {
+                            BackFromDelete = delete(filename, i, Status);
+
+                            if (BackFromDelete == 0) {
+                                Validity = 1;
+                            }
+
+                        } else {
+                            printf("Only the admin can delete.\n");
+                        }
+
+                    } else {
+                        Validity = 1;
+                    }
+
                 } else {
 
                     while (getchar() != '\n');
@@ -345,11 +397,6 @@ int Update(int Status, int Num, struct product Product[], const char *filename) 
                     continue;
                 }
 
-            } else {
-
-                delete(filename , i, Status);
-
-                break;
             }
 
         }
@@ -378,51 +425,6 @@ void show(int Status){
     Update(Status, numSubject, _product, filename);
 
 }
-
-// This is a login system function (admin or cashier)  
-// Chanya Kittichai 66070503412
-
-int login()
-{
-    char code;
-    printf("[0] Admin\n[1] Cashier\n[else] Exit\n");
-    scanf("%c", &code);
-
-    char psw[6];
-
-    if ( code == '0')
-    {
-        printf("Please enter a password: ");
-        scanf("%s", psw);
-        while (strcmp(psw, "12345a")!=0)
-        {
-            printf("Please enter the password again.\n");
-            scanf("%s", psw);
-        }
-        printf("Yeah! You are admin.\n");
-        
-        return 1;
-
-    }
-    if ( code == '1')
-    {
-        printf("Please enter a password: ");
-        scanf("%s", psw);
-        while (strcmp(psw, "12345c")!=0)
-        {
-            printf("Please enter the password again.\n");
-            scanf("%s", psw);
-        }
-        printf("Yeah! You are cashier.\n");
-
-        return 2;
-
-    }
-    
-    return 0;
-    
-}
-
 
 int main() {
     int Validity = 0, Input, Status;
