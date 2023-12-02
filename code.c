@@ -81,7 +81,7 @@ int delete(const char *filename, int i, int Status) {
 
         if (DeleteOrNot == 0) {
 
-            return;
+            
 
         } else {
                 
@@ -89,7 +89,7 @@ int delete(const char *filename, int i, int Status) {
 
                     printf("Only admin can delete.\n");
 
-                    return;
+                    
 
                 } else if (Status == 1) {
                      // Delete a row from a CSV file
