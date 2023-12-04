@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "create.h"
+#include "Create.h"
 
 #define MAX_LINE_SIZE 256
 #define MAX_NAME_SIZE 100
@@ -82,10 +82,10 @@ void UpdateFile(int Num, struct product Product[]) {
 }
 
 //A part of the update function by Karun Tancharoen 66070503407
-void UpdateStruct(struct product Product[], int UserStatus, int i) {
+void UpdateStruct(struct product Product[], int Status, int i) {
     int Validity = 0, WhatToEdit, EditOrExit;
 
-    if (UserStatus == 1) {
+    if (Status == 1) {
 
         while (!Validity) {
             printf("Input the number corresponding to data you want to edit: ");
@@ -185,7 +185,7 @@ void UpdateStruct(struct product Product[], int UserStatus, int i) {
 
         if (EditOrExit == 1) {
 
-            UpdateStruct(Product, UserStatus, i);
+            UpdateStruct(Product, Status, i);
 
         }
 
@@ -210,7 +210,7 @@ void UpdateStruct(struct product Product[], int UserStatus, int i) {
 }
 
 //The update function by Karun Tancharoen 66070503407
-int Update(int UserStatus, int Num, struct product Product[]) {
+int Update(int Status, int Num, struct product Product[]) {
     char ProductName[MAX_NAME_SIZE];
     int NextOrEdit, i;
 
@@ -252,7 +252,7 @@ int Update(int UserStatus, int Num, struct product Product[]) {
                 continue;
             } else {
 
-                UpdateStruct(Product, UserStatus, i);
+                UpdateStruct(Product, Status, i);
 
                 UpdateFile(Num, Product);
 
@@ -292,7 +292,7 @@ int Update(int UserStatus, int Num, struct product Product[]) {
 return 0;
 }
 
-void show(int UserStatus, int Flag){
+void show(int Status, int Flag){
     const char *filename = "priceyCosmetics.csv";
     struct product _product[1000];
     int numSubject;
@@ -310,7 +310,7 @@ void show(int UserStatus, int Flag){
     }
 
     if (Flag == 1) {
-        Update(UserStatus, numSubject, _product);
+        Update(Status, numSubject, _product);
     }
 
 }
@@ -361,10 +361,10 @@ int login()
 
 
 int main() {
-    int Validity = 0, UserInput, UserStatus;
-    UserStatus = login();
+    int Validity = 0, Input, Status;
+    Status = login();
 
-    if (UserStatus == 1) {
+    if (Status == 1) {
 
         while (!Validity) {
             printf("Show all products: Press 0\n");
@@ -372,29 +372,29 @@ int main() {
             printf("Update or delete product(s): Press 2\n");
             printf("Choose what to do: ");
 
-            if (scanf("%d", &UserInput) == 1 && UserInput == 0 || UserInput == 1 || UserInput == 2) 
+            if (scanf("%d", &Input) == 1 && Input == 0 || Input == 1 || Input == 2) 
             {
-                if (UserInput == 0) {
+                if (Input == 0) {
                     Validity = 1;
 
-                    show(UserStatus, 0);
+                    show(Status, 0);
 
                 } 
-                else if (UserInput == 1) {
+                else if (Input == 1) {
                     Validity = 1;
 
                     create();
                 }
                 else
                 {
-                    show(UserStatus, 1);
+                    show(Status, 1);
                 }
 
             } else {
                 
                 while (getchar() != '\n');
 
-                printf("You can only input 0, 1, or 2. UserInput again\n");
+                printf("You can only input 0, 1, or 2. Input again\n");
             }
 
         }
@@ -406,25 +406,25 @@ int main() {
             printf("Update or delete product(s): Press 1\n");
             printf("Choose what to do: ");
 
-            if (scanf("%d", &UserInput) == 1 && UserInput == 0 || UserInput == 1) 
+            if (scanf("%d", &Input) == 1 && Input == 0 || Input == 1) 
             {
-                if (UserInput == 0) {
+                if (Input == 0) {
                     Validity = 1;
 
-                    show(UserStatus, 0);
+                    show(Status, 0);
 
                 } 
                 else {
                     Validity = 1;
 
-                    show(UserStatus, 1);
+                    show(Status, 1);
                 }
 
             } else {
                 
                 while (getchar() != '\n');
 
-                printf("You can only input 0 or 1. UserInput again\n");
+                printf("You can only input 0 or 1. Input again\n");
             }
 
         }
