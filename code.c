@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Create.h"
 
 #define MAX_LINE_SIZE 256
 #define MAX_NAME_SIZE 100
@@ -291,7 +292,7 @@ int Update(int Status, int Num, struct product Product[]) {
 return 0;
 }
 
-void show(int Status){
+void show(int Status, int Flag){
     const char *filename = "priceyCosmetics.csv";
     struct product _product[1000];
     int numSubject;
@@ -308,7 +309,9 @@ void show(int Status){
         printf("\n");
     }
 
-    Update(Status, numSubject, _product);
+    if (Flag == 1) {
+        Update(Status, numSubject, _product);
+    }
 
 }
 
@@ -355,7 +358,6 @@ int login()
     return 0;
     
 }
-
 
 int main() {
     int Validity = 0, Input, Status;
