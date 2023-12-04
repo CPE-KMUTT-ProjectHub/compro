@@ -372,7 +372,7 @@ int main() {
             printf("Update or delete product(s): Press 2\n");
             printf("Choose what to do: ");
 
-            if (scanf("%d", &Input) == 1 && Input == 0 || Input == 1 || Input == 2 ||Input == 3 ) 
+            if (scanf("%d", &Input) == 1 && Input == 0 || Input == 1 || Input == 2) 
             {
                 if (Input == 0) {
                     Validity = 1;
@@ -385,7 +385,7 @@ int main() {
 
                     create();
                 }
-                else if ( Input == 2)
+                else
                 {
                     show(Status, 1);
                 }
