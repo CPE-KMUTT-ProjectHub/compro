@@ -125,6 +125,7 @@ int main() {
     Status = login();
 
     if (Status == 1) {
+    if (Status == 1) {
 
         while (!Validity) {
             printf("Show all products: Press 0\n");
@@ -190,6 +191,7 @@ int main() {
                 
                 while (getchar() != '\n');
 
+                printf("You can only input 0 or 1. Input again\n");
                 printf("You can only input 0 or 1. Input again\n");
             }
 
