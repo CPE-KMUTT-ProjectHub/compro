@@ -531,7 +531,9 @@ void create()
 
         for ( int i = 0; i < amount_product_to_add ; i++)
         {
-            fprintf(createptr,"\n%s,%s,%s,%d,%.2f,%s",product[i].Name,product[i].Brand,product[i].ProducType,product[i].AmountInStorage,product[i].Price,product[i].ExpireDate);       
+            fprintf(createptr,"\n%s,%s,%s,%d,%.2f,%s",product[i].Name
+            ,product[i].Brand,product[i].ProducType,product[i].AmountInStorage
+            ,product[i].Price,product[i].ExpireDate);       
         }
 
         printf("Completely add product(s)");
