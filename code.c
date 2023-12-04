@@ -361,27 +361,72 @@ int main() {
     int Validity = 0, Input, Status;
     Status = login();
 
-    if (Status == 1 || Status == 2) {
+    if (Status == 1) {
 
         while (!Validity) {
-            printf("Input 7 to call the update function: ");
+            printf("Show all products: Press 0\n");
+            printf("Create product(s): Press 1\n");
+            printf("Update or delete product(s): Press 2\n");
+            printf("Choose what to do: ");
 
-            if (scanf("%d", &Input) == 1 && Input == 7) {
-                Validity = 1;
+            if (scanf("%d", &Input) == 1 && Input == 0 || Input == 1 || Input == 2) 
+            {
+                if (Input == 0) {
+                    Validity = 1;
 
-                show(Status);
+                    show(Status, 0);
+
+                } 
+                else if (Input == 1) {
+                    Validity = 1;
+
+                    create();
+                }
+                else
+                {
+                    show(Status, 1);
+                }
 
             } else {
                 
                 while (getchar() != '\n');
 
-                printf("You can only input 7. Input again\n");
+                printf("You can only input 0, 1, or 2. Input again\n");
+            }
+
+        }
+
+    } else {
+
+        while (!Validity) {
+            printf("Show all products: Press 0\n");
+            printf("Update or delete product(s): Press 1\n");
+            printf("Choose what to do: ");
+
+            if (scanf("%d", &Input) == 1 && Input == 0 || Input == 1) 
+            {
+                if (Input == 0) {
+                    Validity = 1;
+
+                    show(Status, 0);
+
+                } 
+                else {
+                    Validity = 1;
+
+                    show(Status, 1);
+                }
+
+            } else {
+                
+                while (getchar() != '\n');
+
+                printf("You can only input 0 or 1. Input again\n");
             }
 
         }
 
     }
 
-    //show();
     return 0;
 }
