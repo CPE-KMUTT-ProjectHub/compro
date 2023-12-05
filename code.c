@@ -123,8 +123,7 @@ int login()
 int main() {
     int Validity = 0, Input, Status;
     Status = login();
-
-    if (Status == 1) {
+    
     if (Status == 1) {
 
         while (!Validity) {
