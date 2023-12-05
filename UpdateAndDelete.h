@@ -67,6 +67,7 @@ int Delete(const char *filename, int i, int Status, int Num) {
 
 
         printf("Deleted.\n");
+        
         return 1;
     }
 
