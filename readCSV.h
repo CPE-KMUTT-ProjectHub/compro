@@ -60,12 +60,12 @@ void show(int Status, int Flag){
     readCSV(filename, _product, &numSubject);
 
     for (int i = 0; i < numSubject; i++) {
-        printf("%s ", _product[i].Name);
-        printf("%s ", _product[i].Brand);
-        printf("%s ", _product[i].ProducType);
-        printf("%d ", _product[i].AmountInStorage);
-        printf("%.2f ", _product[i].Price);
-        printf("%s", _product[i].ExpireDate);
+        printf("%s |", _product[i].Name);
+        printf(" %s |", _product[i].Brand);
+        printf(" %s |", _product[i].ProducType);
+        printf(" %d |", _product[i].AmountInStorage);
+        printf(" %.2f |", _product[i].Price);
+        printf(" %s", _product[i].ExpireDate);
         printf("\n");
     }
 

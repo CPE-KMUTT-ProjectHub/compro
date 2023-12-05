@@ -10,6 +10,7 @@
 
 int main() {
     int Validity = 0, Input, Status;
+    printf("Welcome to Cosmetic Shop!\n");
     Status = login();
     
     if (Status == 1) {
