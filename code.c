@@ -50,7 +50,7 @@ int main() {
 
         }
 
-    } else {
+    } if(Status == 2)  {
 
         while (!Validity) {
             printf("Show all products: Press 0\n");

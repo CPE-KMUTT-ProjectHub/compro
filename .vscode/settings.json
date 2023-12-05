@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "readcsv.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "updateanddelete.h": "c"
     }
 }

@@ -10,7 +10,7 @@ struct list
     char code[MAX];
     char username[MAX];
     char password[MAX];
-    
+
 };
 
 void readfile(const char *filename, struct list *list, int *count)
@@ -37,7 +37,7 @@ void readfile(const char *filename, struct list *list, int *count)
         list[*count].username[MAX - 1] = '\0';
 
         token = strtok(NULL, ",");
-        strncpy(list[*count].password, token, MAX- 1);
+        strncpy(list[*count].password, token, MAX - 1);
         list[*count].password[MAX - 1] = '\0';
 
         (*count)++;
@@ -48,7 +48,7 @@ void readfile(const char *filename, struct list *list, int *count)
 
 int login()
 {
-    const char *filename = "UsersList.csv";
+    const char *filename = "UserList.csv";
     struct list list[100];
     int count;
     char input_username[MAX];
@@ -56,7 +56,7 @@ int login()
 
 
     FILE *fpt;
-    fpt = fopen("UsersList.csv", "r");
+    fpt = fopen("UserList.csv", "r");
 
 
     readfile(filename, list, &count);
@@ -70,11 +70,11 @@ int login()
         {
             printf("Please enter password: ");
             scanf("%s", input_password);
-            while(strcmp(list[i].password,input_password)!=13){
+            while(strcmp(list[i].password,input_password)!=0){
                 printf("Error please enter password agian: ");
                 scanf("%s", input_password);
             }
-            if(strcmp(list[i].password,input_password)==13)
+            if(strcmp(list[i].password,input_password)==0)
             {
                 printf("Yeah! Log in successfully.\n");
                 if(strcmp(list[i].code,"0") == 0){
