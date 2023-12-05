@@ -68,6 +68,8 @@ int Delete(const char *filename, int i, int Status) {
         printf("Deleted.\n");
     }
 
+    return 0;
+
 }
 
 //A part of the update function by Karun Tancharoen 66070503407
@@ -345,5 +347,7 @@ int Update(int Status, int Num, struct product Product[], const char *filename) 
         Update(Status, Num, Product, filename);
 
     }
+
+    return 0;
     
 }

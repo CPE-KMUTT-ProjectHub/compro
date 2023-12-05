@@ -33,6 +33,9 @@ int LetterCheck(char input[])
     {
         return 1;
     }
+
+    return 0;
+
 }
 
 //NumberCheck function by 66070503438 Punyanuch Kajornchaikitti
@@ -104,6 +107,9 @@ int isExpireDateFormatValid(char expireDate[])
     {
         return 1;
     }
+
+    return 0;
+
 }
 
 //isExpireDateExists function by 66070503438 Punyanuch Kajornchaikitti
@@ -135,107 +141,109 @@ int isExpireDateExists(char validFormatEXPDate[])
     }
     else if ( month == 2)
     {
-            if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
-            {
-                    if ( day > 29)
-                    {
-                        printf("Invalid date, please enter Expire date again: ");
-                        return -1;
-                    }
-            }
-            else if ( day > dayInMonth[month])
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+        {
+            if ( day > 29)
             {
                 printf("Invalid date, please enter Expire date again: ");
                 return -1;
             }
-            else
-            {
-                return 1;
-            }      
+        }
+        else if ( day > dayInMonth[month])
+        {
+            printf("Invalid date, please enter Expire date again: ");
+            return -1;
+        }
+        else
+        {
+            return 1;
+        }      
     }
     else if (day <= dayInMonth[month])
     {
         return 1;
     }
+
+    return 0;
     
 }
 //Create function by 66070503438 Punyanuch Kajornchaikitti
 void create()
 {
-        struct Producty product[1000];
-        char ProductType[1000];
-        char Price[1000];
-        char Amount[1000];
-        char expireDate[11];
-        char amount_product_to_add_initial[10000];
-        int amount_product_to_add;
-        FILE *createptr = fopen("priceyCosmetics.csv","a");
-        if ( createptr == NULL)
-        {
-            puts("could not open the file");
-            exit(1);
-        }
+    struct Producty product[1000];
+    char ProductType[1000];
+    char Price[1000];
+    char Amount[1000];
+    char expireDate[11];
+    char amount_product_to_add_initial[10000];
+    int amount_product_to_add;
+    FILE *createptr = fopen("priceyCosmetics.csv","a");
+    if ( createptr == NULL)
+    {
+        puts("could not open the file");
+        exit(1);
+    }
 
-        printf("Enter amount of product you want to create: ");
-        scanf("%s",amount_product_to_add_initial);
-        while (NumberCheck(amount_product_to_add_initial) == -1 )
-        {
-                printf("Enter only integer(s): ");
-                scanf("%s",amount_product_to_add_initial);
-        }
-        amount_product_to_add = atoi(amount_product_to_add_initial);
-        for ( int i = 0; i < amount_product_to_add ; i++)
-        {
-            printf("| Product number %d",i+1);
+    printf("Enter amount of product you want to create: ");
+    scanf("%s",amount_product_to_add_initial);
+    while (NumberCheck(amount_product_to_add_initial) == -1 )
+    {
+            printf("Enter only integer(s): ");
+            scanf("%s",amount_product_to_add_initial);
+    }
+    amount_product_to_add = atoi(amount_product_to_add_initial);
+    for ( int i = 0; i < amount_product_to_add ; i++)
+    {
+        printf("| Product number %d",i+1);
 
-            printf("\nName: ");
-            scanf("%s",product[i].Name);
-            printf("Brand: ");
-            scanf("%s",product[i].Brand);
-            printf("Product Type: ");
+        printf("\nName: ");
+        scanf("%s",product[i].Name);
+        printf("Brand: ");
+        scanf("%s",product[i].Brand);
+        printf("Product Type: ");
+        scanf("%s",ProductType);
+        while (LetterCheck(ProductType) == -1 )
+        {
+            printf("Please enter only letter(s): ");
             scanf("%s",ProductType);
-            while (LetterCheck(ProductType) == -1 )
-            {
-                printf("Please enter only letter(s): ");
-                scanf("%s",ProductType);
-            }
-            strcpy(product[i].ProducType, ProductType);
-
-            printf("Amount: ");
-            scanf("%s",Amount);
-            while (NumberCheck(Amount) == -1 )
-            {
-                printf("Please enter only integer(s): ");
-                scanf("%s",Amount);
-            }
-            product[i].AmountInStorage = NumberCheck(Amount);
-            
-            printf("Price: ");
-            scanf("%s",Price);
-            while (PriceCheck(Price) ==-1 )
-            {
-                printf("Please enter only numbers: ");
-                scanf("%s",Price);
-            }
-            product[i].Price = atof(Price);
-            printf("Expire Date (DD/MM/YYYY): ");
-            scanf("%s",&expireDate);
-            while (isExpireDateFormatValid(expireDate) == -1 || isExpireDateExists(expireDate) == -1)
-            {
-                scanf("%s",&expireDate);
-            }
-            strcpy(product[i].ExpireDate,expireDate);
-            printf("-----------------------------------\n");           
         }
+        strcpy(product[i].ProducType, ProductType);
 
-        for ( int i = 0; i < amount_product_to_add ; i++)
+        printf("Amount: ");
+        scanf("%s",Amount);
+        while (NumberCheck(Amount) == -1 )
         {
-            fprintf(createptr,"\n%s,%s,%s,%d,%.2f,%s",product[i].Name
-            ,product[i].Brand,product[i].ProducType,product[i].AmountInStorage
-            ,product[i].Price,product[i].ExpireDate);       
+            printf("Please enter only integer(s): ");
+            scanf("%s",Amount);
         }
+        product[i].AmountInStorage = NumberCheck(Amount);
+        
+        printf("Price: ");
+        scanf("%s",Price);
+        while (PriceCheck(Price) ==-1 )
+        {
+            printf("Please enter only numbers: ");
+            scanf("%s",Price);
+        }
+        product[i].Price = atof(Price);
+        printf("Expire Date (DD/MM/YYYY): ");
+        scanf("%s",expireDate);
+        while (isExpireDateFormatValid(expireDate) == -1 || isExpireDateExists(expireDate) == -1)
+        {
+            scanf("%s",expireDate);
+        }
+        strcpy(product[i].ExpireDate,expireDate);
+        printf("-----------------------------------\n");           
+    }
 
-        printf("Completely add product(s)");
+    for ( int i = 0; i < amount_product_to_add ; i++)
+    {
+        fprintf(createptr,"\n%s,%s,%s,%d,%.2f,%s",product[i].Name
+        ,product[i].Brand,product[i].ProducType,product[i].AmountInStorage
+        ,product[i].Price,product[i].ExpireDate);       
+    }
 
-        fclose(createptr);
+    printf("Completely add product(s)");
+
+    fclose(createptr);
 }
