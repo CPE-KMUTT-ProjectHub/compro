@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "readcsv.h": "c",
+        "stdio.h": "c"
+    }
+}
