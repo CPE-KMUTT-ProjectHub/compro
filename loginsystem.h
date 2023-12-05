@@ -1,46 +1,93 @@
-// This is a login system function (admin or cashier)  
-// Chanya Kittichai 66070503412
-
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+#define LINE 100
+#define MAX 100
+
+struct list
+{
+    char code[MAX];
+    char username[MAX];
+    char password[MAX];
+    
+};
+
+void readfile(const char *filename, struct list *list, int *count)
+{
+    FILE *file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        perror("Can Not Open The File");
+        exit(EXIT_FAILURE);
+    }
+
+    char line[LINE];
+    *count = 0;
+
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        char *token = strtok(line, ",");
+        
+        strncpy(list[*count].code, token, MAX - 1);
+        list[*count].code[MAX - 1] = '\0';
+
+        token = strtok(NULL, ",");
+        strncpy(list[*count].username, token, MAX - 1);
+        list[*count].username[MAX - 1] = '\0';
+
+        token = strtok(NULL, ",");
+        strncpy(list[*count].password, token, MAX- 1);
+        list[*count].password[MAX - 1] = '\0';
+
+        (*count)++;
+    }
+
+    fclose(file);
+}
 
 int login()
 {
-    char code;
-    printf("[0] Admin\n[1] Cashier\n[else] Exit\n");
-    scanf("%c", &code);
+    const char *filename = "UsersList.csv";
+    struct list list[100];
+    int count;
+    char input_username[MAX];
+    char input_password[MAX];
 
-    char psw[6];
 
-    if ( code == '0')
+    FILE *fpt;
+    fpt = fopen("UsersList.csv", "r");
+
+
+    readfile(filename, list, &count);
+
+    printf("Please enter username: ");
+    scanf("%s", input_username);
+
+    for (int i = 0; i < count; i++)
     {
-        printf("Please enter a password: ");
-        scanf("%s", psw);
-        while (strcmp(psw, "12345a")!=0)
+        if(!strcmp(list[i].username,input_username))
         {
-            printf("Please enter the password again.\n");
-            scanf("%s", psw);
+            printf("Please enter password: ");
+            scanf("%s", input_password);
+            while(strcmp(list[i].password,input_password)!=13){
+                printf("Error please enter password agian: ");
+                scanf("%s", input_password);
+            }
+            if(strcmp(list[i].password,input_password)==13)
+            {
+                printf("Yeah! Log in successfully.\n");
+                if(strcmp(list[i].code,"0") == 0){
+                    return 2;
+                }
+                if(strcmp(list[i].code,"1") == 0){
+                    return 1;
+                }
+            }
+            
         }
-        printf("Yeah! You are admin.\n");
-        
-        return 1;
-
     }
-    if ( code == '1')
-    {
-        printf("Please enter a password: ");
-        scanf("%s", psw);
-        while (strcmp(psw, "12345c")!=0)
-        {
-            printf("Please enter the password again.\n");
-            scanf("%s", psw);
-        }
-        printf("Yeah! You are cashier.\n");
+    fclose(fpt);
 
-        return 2;
-
-    }
-    
     return 0;
-    
 }
